@@ -1,8 +1,8 @@
 (function($){
   $(function(){
 
-    $('.button-collapse').sideNav();
-	$('.scrollspy').scrollSpy();
+    // $('.button-collapse').sideNav();
+	// $('.scrollspy').scrollSpy();
 
     /*** Animate word ***/
 
