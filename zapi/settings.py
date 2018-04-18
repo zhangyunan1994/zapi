@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'zapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'devops',
+        'NAME': '7pi',
         'HOST': '39.106.58.45',
-        'USER': 'devops',
-        'PASSWORD': 'devops'
+        'USER': 'yunan.zhang',
+        'PASSWORD': '84abe2d4a'
     }
 }
 
