@@ -14,16 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from zapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', views.index, name='index'),
-    path(r'login', views.login, name='login'),
-    path(r'logout', views.logout, name='logout'),
-    path(r'project', include('project.urls')),  # 项目管理
-    path(r'team', include('team.urls')),  # 团队管理
-
 ]
