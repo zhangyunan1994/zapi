@@ -25,3 +25,15 @@ def add(request):
     version = request.POST.get("version")
     Project.objects.create(name=name, version=version, remark=remark, department_id=department_id, status=0)
     return JsonResponse({"code": 200}, safe=False)
+
+
+def modify(request):
+    id = request.POST.get("id")
+    name = request.POST.get("name")
+    remark = request.POST.get("remark")
+    department_id = request.POST.get("department_id")
+    version = request.POST.get("version")
+    status = request.POST.get("status")
+    Project.objects.filter(id=id).update(name=name, version=version, remark=remark,
+                                         department_id=department_id, status=0)
+    return JsonResponse({"code": 200}, safe=False)

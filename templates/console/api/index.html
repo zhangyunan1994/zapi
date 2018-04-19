@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="devops_app">
+        <div class="container-fluid">
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="display: inline">api</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        let devops_app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#devops_app',
+            data: {
+                members: [],
+                departments: [],
+                project: {},
+                projects: [],
+                project_name: '',
+
+            },
+            mounted: function () {
+            },
+            methods: {
+
+            }
+        });
+        $('#modal_form').on('hidden.bs.modal', function () {
+            devops_app.member = {};
+        });
+    </script>
+
+{% endblock %}

@@ -18,7 +18,6 @@ from django.urls import path, include
 
 from zapi import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', views.index, name='index'),
@@ -27,6 +26,7 @@ urlpatterns = [
     path(r'console', include('console.urls')),
     path(r'project', include('project.urls')),  # 项目管理
     path(r'team', include('team.urls')),  # 团队管理
+    path(r'api', include('api.urls')),  # 团队管理
 
 ]
 

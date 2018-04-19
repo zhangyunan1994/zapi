@@ -44,9 +44,8 @@
                                     <td>[[ item.version ]]</td>
                                     <td></td>
                                     <td>
-                                        <a @click="settingMember(item)">设置</a>
-                                        <a @click="settingMember(item)">设置</a>
-                                        <a @click="settingMember(item)">设置</a>
+                                        <a @click="settingProject(item)">设置</a> |
+                                        <a :href="'{% url 'api/index' %}?id=' + item.id">Api 管理</a> |
                                     </td>
                                 </tr>
                                 </tbody>
@@ -101,8 +100,65 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-8 col-sm-offset-3">
-                                            <button @click="addProject()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
+                                            <button @click="saveProject()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
                                             <strong>添加</strong>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_modify" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">添加项目</h3>
+                                <hr>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">项目名称：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.name" placeholder="项目名称..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">版本号：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.version" placeholder="版本号..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">负责人：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.manager_id" placeholder="负责人" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">所属部门：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" v-model="project.department_id">
+                                                <option v-for="department in departments" :value="department.id">
+                                                    [[ department.name ]]
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">项目描述：</label>
+                                        <div class="col-sm-8">
+                                            <textarea v-model="project.remark" placeholder="项目描述..." rows="4" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button @click="modifyProject()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
+                                            <strong>保存修改</strong>
                                         </button>
                                         </div>
                                     </div>
@@ -148,7 +204,7 @@
                         }
                     });
                 },
-                addProject() {
+                saveProject() {
                     $.ajax({
                         url: "{% url "project/add" %}",
                         data: this.project,
@@ -169,28 +225,13 @@
                 },
                 modifyProject() {
                     $.ajax({
-                        url: "{% url "member/modify" %}",
+                        url: "{% url "project/modify" %}",
                         data: this.project,
                         type: "post",
                         success: function (data) {
                             if (data.code === 200) {
-                                $("#modal-modify").modal("hide");
-                                devops_app.searchMember();
-                            } else {
-                                alert("修改失败");
-                            }
-                        }
-                    });
-                },
-                deleteMember() {
-                    $.ajax({
-                        url: "{% url "member/remove" %}",
-                        data: this.member,
-                        type: "post",
-                        success: function (data) {
-                            if (data.code === 200) {
-                                $("#modal-modify").modal("hide");
-                                devops_app.searchMember();
+                                $("#modal_modify").modal("hide");
+                                devops_app.searchProjects();
                             } else {
                                 alert("修改失败");
                             }
