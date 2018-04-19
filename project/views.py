@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from project.models import Project
+from team.models import Member, Department
 
 
 def index(request):
@@ -42,4 +43,8 @@ def modify(request):
 def detail(request):
     id = request.GET.get("id")
     project = Project.objects.filter(id=id).values().first()
+    if project and project.get('manager_id'):
+        project['manager_name'] = Member.objects.filter(id=project.get('manager_id')).first().name
+    if project:
+        project['department_name'] = Department.objects.filter(id=project.get('department_id')).first().name
     return JsonResponse({"code": 200, "project": project}, safe=False)
