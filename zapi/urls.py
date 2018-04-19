@@ -23,10 +23,10 @@ urlpatterns = [
     path(r'', views.index, name='index'),
     path(r'login', views.login, name='login'),
     path(r'logout', views.logout, name='logout'),
-    path(r'console', include('console.urls')),
-    path(r'project', include('project.urls')),  # 项目管理
-    path(r'team', include('team.urls')),  # 团队管理
-    path(r'api', include('api.urls')),  # 团队管理
+    path(r'console/', include('console.urls')),
+    path(r'project/', include('project.urls')),  # 项目管理
+    path(r'team/', include('team.urls')),  # 团队管理
+    path(r'api/', include('api.urls')),  # 团队管理
 
 ]
 
