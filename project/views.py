@@ -37,3 +37,9 @@ def modify(request):
     Project.objects.filter(id=id).update(name=name, version=version, remark=remark,
                                          department_id=department_id, status=0)
     return JsonResponse({"code": 200}, safe=False)
+
+
+def detail(request):
+    id = request.GET.get("id")
+    project = Project.objects.filter(id=id).values().first()
+    return JsonResponse({"code": 200, "project": project}, safe=False)
