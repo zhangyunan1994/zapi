@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="devops_app">
+        <div class="container-fluid">
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="display: inline">项目管理</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input class="form-control" v-model="project_name"
+                                           placeholder="项目名称" type="text">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button"
+                                                @click="searchProjects()">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <a data-toggle="modal" type="button" class="btn btn-primary" href="#modal_form"><span class="lnr lnr-plus-circle"></span> 添加项目</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>项目名称</th>
+                                    <th>版本</th>
+                                    <th>负责人</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item, index) in projects">
+                                    <td>[[ item.name ]]</td>
+                                    <td>[[ item.version ]]</td>
+                                    <td></td>
+                                    <td>
+                                        <a @click="settingMember(item)">设置</a>
+                                        <a @click="settingMember(item)">设置</a>
+                                        <a @click="settingMember(item)">设置</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_form" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">添加项目</h3>
+                                <hr>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">项目名称：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.name" placeholder="项目名称..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">版本号：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.version" placeholder="版本号..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">负责人：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="project.manager_id" placeholder="负责人" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">所属部门：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" v-model="project.department_id">
+                                                <option v-for="department in departments" :value="department.id">
+                                                    [[ department.name ]]
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">项目描述：</label>
+                                        <div class="col-sm-8">
+                                            <textarea v-model="project.remark" placeholder="项目描述..." rows="4" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button @click="addProject()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
+                                            <strong>添加</strong>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        let devops_app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#devops_app',
+            data: {
+                members: [],
+                departments: [],
+                project: {},
+                projects: [],
+                project_name: '',
+
+            },
+            mounted: function () {
+                this.searchProjects();
+                this.searchDepartments();
+            },
+            methods: {
+                searchProjects() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'project/list' %}",
+                        data: { 'project_name': _this.project_name },
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.projects = data.records;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                },
+                addProject() {
+                    $.ajax({
+                        url: "{% url "project/add" %}",
+                        data: this.project,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal_form").modal("hide");
+                                devops_app.searchProjects();
+                            } else {
+                                alert("添加失败");
+                            }
+                        }
+                    });
+                },
+                settingProject(project) {
+                    this.project = project;
+                    $("#modal_modify").modal("show");
+                },
+                modifyProject() {
+                    $.ajax({
+                        url: "{% url "member/modify" %}",
+                        data: this.project,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal-modify").modal("hide");
+                                devops_app.searchMember();
+                            } else {
+                                alert("修改失败");
+                            }
+                        }
+                    });
+                },
+                deleteMember() {
+                    $.ajax({
+                        url: "{% url "member/remove" %}",
+                        data: this.member,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal-modify").modal("hide");
+                                devops_app.searchMember();
+                            } else {
+                                alert("修改失败");
+                            }
+                        }
+                    });
+                },
+                searchDepartments() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'department/list' %}",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.departments = data.records;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                },
+            }
+        });
+        $('#modal_form').on('hidden.bs.modal', function () {
+            devops_app.member = {};
+        });
+    </script>
+
+{% endblock %}

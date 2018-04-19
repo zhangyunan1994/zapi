@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="devops_app">
+        <div class="container-fluid">
+            <div class="panel panel-headline">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="display: inline">成员管理</h3>
+                    <div class="col-md-2 pull-right">
+                        <a data-toggle="modal" style="background-color: #00aaff;border-color: #00a0f0;height: 30px;"
+                           class="btn btn-primary btn-block" href="#modal-form">添加成员</a>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input class="form-control" v-model="member_name" id="search_name"
+                                           placeholder="搜索员工姓名、手机号" type="text">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button"
+                                                @click="searchMember()">Go!</button>
+                                    </span>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-info">全部</a>
+                                            <a v-for="department in departments" :data-id="department.id" href="#" class="list-group-item list-group-item-info">[[ department.name ]]</a>
+                                        </div>
+                                        <button type="button" @click="settingDepartment()" class="btn btn-primary btn-block">管理部门</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>姓名</th>
+                                    <th>手机号/邮箱</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in members">
+                                    <td>[[ index + 1 ]]</td>
+                                    <td>[[ item.name ]]</td>
+                                    <td>[[ item.phone ]] / [[ item.email ]]</td>
+                                    <td><a @click="settingMember(item)">设置</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-form" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">添加成员</h3>
+                                <hr>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">姓名：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.name" type="email" placeholder="员工姓名" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">登录用户名：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.account" placeholder="登录用户名" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">登录密码：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.password" type="password" placeholder="登录密码" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">手机号：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.phone" placeholder="手机号" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">邮箱：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.email" placeholder="邮箱" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">所属部门：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" v-model="member.department_id">
+                                                <option value="0">请选择</option>
+                                                <option v-for="department in departments" :value="department.id">[[
+                                                    department.name ]]
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button @click="addMember()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
+                                            <strong>添加</strong>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-modify" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">编辑成员</h3>
+                                <hr>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">姓名：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.name" type="email" placeholder="员工姓名" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">登录用户名：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.account" placeholder="登录用户名" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">登录密码：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.password" type="password" placeholder="登录密码" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">手机号：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.phone" placeholder="手机号" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">邮箱：</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="member.email" placeholder="邮箱" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">所属部门：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" v-model="member.department_id">
+                                                <option value="0">请选择</option>
+                                                <option v-for="department in departments" :value="department.id">[[
+                                                    department.name ]]
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button @click="modifyMember()" class="btn btn-sm btn-primary pull-right m-t-n-xs">
+                                                <strong>确认修改</strong>
+                                            </button>
+                                            <button @click="deleteMember()" style="margin-right: 20px;" class="btn btn-sm btn-danger pull-right m-t-n-xs">
+                                                <strong>删除</strong>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-department" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">部门管理</h3>
+                                <hr>
+                                <div class="input-group">
+                                    <input class="form-control" v-model="department_name"placeholder="部门名称">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button"
+                                                @click="addDepartment()">添加部门</button>
+                                    </span>
+                                </div>
+                                <div class="list-group" style="margin-top: 20px;">
+                                    <a v-for="department in departments" :data-id="department.id" href="#" class="list-group-item list-group-item-info">[[ department.name ]]</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        let devops_app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#devops_app',
+            data: {
+                members: [],
+                member: {'department': 0},
+                member_name: '',
+                departments: [],
+                department: {},
+                department_name: ''
+            },
+            mounted: function () {
+                this.searchMember();
+                this.searchDepartments();
+            },
+            methods: {
+                searchMember() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'member/members' %}",
+                        data: {
+                            "searchParam": _this.member_name
+                        },
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.members = data.records;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                },
+                addMember() {
+                    $.ajax({
+                        url: "{% url "member/add" %}",
+                        data: this.member,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal-form").modal("hide");
+                                devops_app.searchMember();
+                            } else {
+                                alert("添加失败");
+                            }
+                        }
+                    });
+                },
+                settingMember(member) {
+                    this.member = member;
+                    $("#modal-modify").modal("show");
+                },
+                modifyMember() {
+                    $.ajax({
+                        url: "{% url "member/modify" %}",
+                        data: this.member,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal-modify").modal("hide");
+                                devops_app.searchMember();
+                            } else {
+                                alert("修改失败");
+                            }
+                        }
+                    });
+                },
+                deleteMember() {
+                    $.ajax({
+                        url: "{% url "member/remove" %}",
+                        data: this.member,
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#modal-modify").modal("hide");
+                                devops_app.searchMember();
+                            } else {
+                                alert("修改失败");
+                            }
+                        }
+                    });
+                },
+                searchDepartments() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'department/list' %}",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.departments = data.records;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                },
+                settingDepartment() {
+                    $("#modal-department").modal("show");
+                    this.searchDepartments();
+                },
+                addDepartment() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'department/add' %}",
+                        data: {"department_name": _this.department_name},
+                        type: "post",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.searchDepartments();
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $('#modal-form').on('hidden.bs.modal', function () {
+            devops_app.member = {};
+        });
+    </script>
+
+{% endblock %}

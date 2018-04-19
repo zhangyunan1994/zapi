@@ -15,6 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
+from project import views
 
 urlpatterns = [
+    path('', views.index, name='project/index'),
+    path('lists', views.project_list, name='project/list'),
+    path('add', views.add, name='project/add'),
+
 ]

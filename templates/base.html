@@ -67,8 +67,6 @@
                 </div>
 			</div>
 		</nav>
-		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
@@ -79,46 +77,13 @@
 							<div id="projects" class="collapse">
 								<ul class="nav">
                                     <li><a href="projects/dashboard" class="">工作台</a></li>
-                                    <li><a href="projects/index" class="">项目</a></li>
+                                    <li><a href="{% url 'project/index' %}" class="">项目</a></li>
                                     <li><a href="projects/analysis" class="">统计分析</a></li>
                                     <li><a href="projects/tags" class="">标签</a></li>
 								</ul>
 							</div>
 						</li>
-                        <li><a href="member/index"><i class="lnr lnr-user"></i> <span>成员管理</span></a></li>
-                        <li>
-                            <a href="#assets" data-toggle="collapse" class="collapsed"><i class="lnr lnr-inbox"></i>
-                                <span>资产管理</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="assets" class="collapse">
-                                <ul class="nav">
-                                    <li><a href="asset/index" class="">设备管理</a></li>
-                                    <li><a href="sys/user" class="">系统用户</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#task" data-toggle="collapse" class="collapsed"><i class="lnr lnr-code"></i> <span>任务管理</span>
-                                <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="task" class="collapse">
-								<ul class="nav">
-									<li><a href="task/once" class="">单次执行</a></li>
-									<li><a href="task/index" class="">脚本列表</a></li>
-									<li><a href="task/history" class="">历史记录</a></li>
-								</ul>
-							</div>
-						</li>
-                        <li>
-                            <a href="#microservice" data-toggle="collapse" class="collapsed"><i
-                                    class="lnr lnr-rocket"></i> <span>微服务</span> <i
-                                    class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="microservice" class="collapse">
-								<ul class="nav">
-                                    <li><a href="microservice/setting" class="">设置</a></li>
-                                    <li><a href="microservice/monitor" class="">监控</a></li>
-                                    <li><a href="microservice/index" class="">消息列表</a></li>
-								</ul>
-							</div>
-						</li>
+                        <li><a href="{% url 'team/index' %}"><i class="lnr lnr-user"></i> <span>成员管理</span></a></li>
                         <li>
                             <a href="#apis" data-toggle="collapse" class="collapsed"><i
                                     class="lnr lnr-text-format"></i> <span>接口文档</span> <i
@@ -131,24 +96,15 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a href="document/index"><i class="lnr lnr-bookmark"></i> <span>文档协作</span></a>
-                        </li>
 					</ul>
 				</nav>
 			</div>
 		</div>
-		<!-- END LEFT SIDEBAR -->
-		<!-- MAIN -->
 		<div class="main">
             {% block body %}{% endblock %}
-			<!-- MAIN CONTENT -->
-			<!-- END MAIN CONTENT -->
 		</div>
-		<!-- END MAIN -->
 		<div class="clearfix"></div>
 	</div>
-	<!-- END WRAPPER -->
-	<!-- Javascript -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="../static/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../static/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
