@@ -9,3 +9,11 @@ def index(request):
 
 def team(request):
     return render(request, 'console/api/member.html')
+
+
+def api_list(request):
+    return render(request, 'console/api/list.html')
+
+
+def api_add(request):
+    return render(request, 'console/api/add.html')

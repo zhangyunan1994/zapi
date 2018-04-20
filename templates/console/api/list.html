@@ -1,0 +1,167 @@
+{% extends 'base_api.html' %}
+{% block body %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="devops_app">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content mailbox-content">
+                        <div class="file-manager">
+                            <a data-toggle="modal" href="#modal_group" class="btn btn-block btn-info compose-mail">新建分组</a>
+                            <div class="space-25"></div>
+                            <h3>分组</h3>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li>
+                                    <a href="mailbox.html"> 所有接口 </a>
+                                </li>
+                            </ul>
+                            <h5>分类</h5>
+{#                            <ul class="category-list" style="padding: 0">#}
+{#                                <li>#}
+{#                                    <a> <i class="fa fa-circle text-navy"></i> 工作</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a> <i class="fa fa-circle text-danger"></i> 文档</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a> <i class="fa fa-circle text-primary"></i> 社交</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a> <i class="fa fa-circle text-info"></i> 广告</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a> <i class="fa fa-circle text-warning"></i> 客户端</a>#}
+{#                                </li>#}
+{#                            </ul>#}
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10 animated fadeInRight">
+                <div class="mail-box-header">
+                    <a class="btn btn-success btn-sm pull-left" href="{% url 'api/add' %}">新建接口</a>
+                    <form method="get" action="index.html" class="pull-left mail-search" style="margin-left: 10px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" name="search" placeholder="搜索邮件标题，正文等">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    搜索
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+{#                    <div class="mail-tools tooltip-demo m-t-md">#}
+{#                        <div class="btn-group pull-right">#}
+{#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>#}
+{#                            </button>#}
+{#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i>#}
+{#                            </button>#}
+{##}
+{#                        </div>#}
+{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表">#}
+{#                            <i class="fa fa-refresh"></i> 刷新#}
+{#                        </button>#}
+{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读"><i#}
+{#                                class="fa fa-eye"></i>#}
+{#                        </button>#}
+{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要"><i#}
+{#                                class="fa fa-exclamation"></i>#}
+{#                        </button>#}
+{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件">#}
+{#                            <i class="fa fa-trash-o"></i>#}
+{#                        </button>#}
+{##}
+{#                    </div>#}
+                </div>
+                <div class="mail-box" style="padding-top: 20px;">
+
+                    <table class="table table-hover table-mail">
+                        <thead>
+                        <tr>
+                            <th>接口名称</th>
+                            <th>URL</th>
+                            <th>创建者</th>
+                            <th>最后更新</th>
+                            <th>最后更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>查询指定车辆详情</td>
+                            <td><label class="label-success label" style="padding: 3px;"> GET </label> &nbsp;&nbsp;/car/{id}</td>
+                            <td>张瑀楠</td>
+                            <td>张瑀楠</td>
+                            <td>2018年4月20日 13:53:47</td>
+                            <td>查看 | 修改 | 删除 </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="modal_group" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">添加分组</h3>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="分组名称">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button"
+                                                @click="addGroup()">添加</button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let project_id = 6;
+        let devops_app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#devops_app',
+            data: {
+                project: {},
+
+            },
+            mounted: function () {
+                this.getProject();
+            },
+            methods: {
+                addGroup() {
+                    $("#modal_group").modal('hide');
+                },
+                getProject() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'project/detail' %}",
+                        data: {id: project_id},
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.project = data.project;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        $('#modal_form').on('hidden.bs.modal', function () {
+            devops_app.member = {};
+        });
+    </script>
+
+{% endblock %}
