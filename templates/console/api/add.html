@@ -50,7 +50,8 @@
                     <ul class="nav nav-tabs">
                         <li class=""><a data-toggle="tab" href="#tab-1" aria-expanded="false"> 鉴权</a></li>
                         <li class="active"><a data-toggle="tab" href="#tab-2" aria-expanded="true">请求头部</a></li>
-                        <li class=""><a data-toggle="tab" href="#request_param" aria-expanded="false"> 请求参数（Body）</a></li>
+                        <li class=""><a data-toggle="tab" href="#request_param" aria-expanded="false"> 请求参数（Body）</a>
+                        </li>
                         <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> 请求参数（URL）</a></li>
                     </ul>
                     <div class="tab-content">
@@ -73,43 +74,45 @@
                         <div id="tab-4" class="tab-pane">
                             <div class="panel-body">
                                 <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>参数名</th>
-                                    <th>类型</th>
-                                    <th style="width: 50px;">必填</th>
-                                    <th>示例</th>
-                                    <th>说明</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>张三</td>
-                                    <td><input type="checkbox"></td>
-                                    <td>23</td>
-                                    <td>23</td>
-                                    <td>23</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>李四</td>
-                                    <td>男</td>
-                                    <td>27</td>
-                                    <td>27</td>
-                                    <td>27</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>王麻子</td>
-                                    <td>男</td>
-                                    <td>65</td>
-                                    <td>65</td>
-                                    <td>65</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    <thead>
+                                    <tr>
+                                        <th>参数名</th>
+                                        <th style="width: 150px;">类型</th>
+                                        <th style="width: 50px;">必填</th>
+                                        <th>示例</th>
+                                        <th>说明</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>id</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option value="0">[string]</option>
+                                                <option value="1">[file]</option>
+                                                <option value="2">[json]</option>
+                                                <option value="3" selected="selected">[int]</option>
+                                                <option value="4">[float]</option>
+                                                <option value="5">[double]</option>
+                                                <option value="6">[date]</option>
+                                                <option value="7">[datetime]</option>
+                                                <option value="8">[boolean]</option>
+                                                <option value="9">[byte]</option>
+                                                <option value="10">[short]</option>
+                                                <option value="11">[long]</option>
+                                                <option value="12">[array]</option>
+                                                <option value="13">[object]</option>
+                                                <option value="14">[number]</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="checkbox"></td>
+                                        <td>23</td>
+                                        <td>车辆id</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -522,9 +525,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
 
         <div id="modal_group" class="modal fade" aria-hidden="true">
