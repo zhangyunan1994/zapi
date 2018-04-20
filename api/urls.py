@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path(r'', views.index, name='api/index'),
+    path(r'team', views.team, name='api/team'),
 ]

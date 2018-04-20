@@ -1,0 +1,98 @@
+{% extends 'base_api.html' %}
+{% block body %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="devops_app">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content text-center p-md">
+                        <h2><span class="text-navy">H+ 后台主题UI框架</span>
+                    提供两种主要布局和3套皮肤可供选择</h2>
+                        <p>
+                            所有设置您可以点击页面右上侧的绿色齿轮图标查看效果。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="contact-box">
+                    <a href="profile.html">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../static/img/user5.png">
+                                <div class="m-t-xs font-bold">CTO</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong>NICK</strong></h3>
+                            <address>
+                                <strong>renren Inc.</strong><br>
+                                E-mail:xxx@baidu.com<br>
+                                Weibo:<a href="">http://weibo.com/xxx</a><br>
+                                <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="contact-box">
+                    <a href="profile.html">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../static/img/user5.png">
+                                <div class="m-t-xs font-bold">金牌讲师</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong>马云</strong></h3>
+                            <address>
+                                <strong>renren Inc.</strong><br>
+                                QQ:xxx@baidu.com<br>
+                                Weibo:<a href="">http://weibo.com/xxx</a><br>
+                                <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="contact-box">
+                    <a href="profile.html">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" src="../../../static/img/user5.png">
+                                <div class="m-t-xs font-bold">总监</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong>高圆圆</strong></h3>
+                            <address>
+                                <strong>renren Inc.</strong><br>
+                                E-mail:xxx@baidu.com<br>
+                                Weibo:<a href="">http://weibo.com/xxx</a><br>
+                                <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $(".contact-box").each(function () {
+                animationHover(this, "pulse")
+            })
+        });
+    </script>
+{% endblock %}
