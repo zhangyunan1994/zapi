@@ -3,11 +3,13 @@
     <!-- MAIN CONTENT -->
     <div class="main-content" id="devops_app">
 
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-sm btn-success" @click="save">保存</button>
-            </div>
+        <div class="ibox" style="margin-bottom: 12px;">
+            <button class="btn btn-sm btn-info" @click="history.go(-1)"><span
+                    class="lnr lnr-chevron-left"></span> 返回列表
+            </button>
+            <button class="btn btn-sm btn-success" @click="save">保存</button>
         </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
