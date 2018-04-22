@@ -8,6 +8,19 @@
 from django.db import models
 
 
+class Api(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    http = models.IntegerField()
+    method = models.CharField(max_length=10)
+    request_params = models.CharField(max_length=500, blank=True, null=True)
+    response_params = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'api'
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=80)
 
@@ -135,7 +148,7 @@ class Member(models.Model):
     department = models.ForeignKey(Department, models.DO_NOTHING, blank=True, null=True)
     email = models.CharField(max_length=40, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    status = models.IntegerField(blank=True, null=True, default=0)
+    status = models.IntegerField(blank=True, null=True)
     create_time = models.DateTimeField()
     update_time = models.DateTimeField(blank=True, null=True)
 
@@ -150,7 +163,7 @@ class Project(models.Model):
     version = models.CharField(max_length=30, blank=True, null=True)
     department = models.ForeignKey(Department, models.DO_NOTHING)
     remark = models.CharField(max_length=200, blank=True, null=True)
-    status = models.IntegerField(blank=True, null=True, default=0)
+    status = models.IntegerField(blank=True, null=True)
     create_time = models.DateTimeField()
     update_time = models.DateTimeField(blank=True, null=True)
 

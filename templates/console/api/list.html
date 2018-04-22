@@ -7,7 +7,8 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content mailbox-content">
                         <div class="file-manager">
-                            <a data-toggle="modal" href="#modal_group" class="btn btn-block btn-info compose-mail">新建分组</a>
+                            <a data-toggle="modal" href="#modal_group"
+                               class="btn btn-block btn-info compose-mail">新建分组</a>
                             <div class="space-25"></div>
                             <h3>分组</h3>
                             <ul class="folder-list m-b-md" style="padding: 0">
@@ -16,23 +17,23 @@
                                 </li>
                             </ul>
                             <h5>分类</h5>
-{#                            <ul class="category-list" style="padding: 0">#}
-{#                                <li>#}
-{#                                    <a> <i class="fa fa-circle text-navy"></i> 工作</a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a> <i class="fa fa-circle text-danger"></i> 文档</a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a> <i class="fa fa-circle text-primary"></i> 社交</a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a> <i class="fa fa-circle text-info"></i> 广告</a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a> <i class="fa fa-circle text-warning"></i> 客户端</a>#}
-{#                                </li>#}
-{#                            </ul>#}
+                            {#                            <ul class="category-list" style="padding: 0">#}
+                            {#                                <li>#}
+                            {#                                    <a> <i class="fa fa-circle text-navy"></i> 工作</a>#}
+                            {#                                </li>#}
+                            {#                                <li>#}
+                            {#                                    <a> <i class="fa fa-circle text-danger"></i> 文档</a>#}
+                            {#                                </li>#}
+                            {#                                <li>#}
+                            {#                                    <a> <i class="fa fa-circle text-primary"></i> 社交</a>#}
+                            {#                                </li>#}
+                            {#                                <li>#}
+                            {#                                    <a> <i class="fa fa-circle text-info"></i> 广告</a>#}
+                            {#                                </li>#}
+                            {#                                <li>#}
+                            {#                                    <a> <i class="fa fa-circle text-warning"></i> 客户端</a>#}
+                            {#                                </li>#}
+                            {#                            </ul>#}
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -51,28 +52,28 @@
                             </div>
                         </div>
                     </form>
-{#                    <div class="mail-tools tooltip-demo m-t-md">#}
-{#                        <div class="btn-group pull-right">#}
-{#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>#}
-{#                            </button>#}
-{#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i>#}
-{#                            </button>#}
-{##}
-{#                        </div>#}
-{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表">#}
-{#                            <i class="fa fa-refresh"></i> 刷新#}
-{#                        </button>#}
-{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读"><i#}
-{#                                class="fa fa-eye"></i>#}
-{#                        </button>#}
-{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要"><i#}
-{#                                class="fa fa-exclamation"></i>#}
-{#                        </button>#}
-{#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件">#}
-{#                            <i class="fa fa-trash-o"></i>#}
-{#                        </button>#}
-{##}
-{#                    </div>#}
+                    {#                    <div class="mail-tools tooltip-demo m-t-md">#}
+                    {#                        <div class="btn-group pull-right">#}
+                    {#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>#}
+                    {#                            </button>#}
+                    {#                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i>#}
+                    {#                            </button>#}
+                    {##}
+                    {#                        </div>#}
+                    {#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表">#}
+                    {#                            <i class="fa fa-refresh"></i> 刷新#}
+                    {#                        </button>#}
+                    {#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读"><i#}
+                    {#                                class="fa fa-eye"></i>#}
+                    {#                        </button>#}
+                    {#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要"><i#}
+                    {#                                class="fa fa-exclamation"></i>#}
+                    {#                        </button>#}
+                    {#                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件">#}
+                    {#                            <i class="fa fa-trash-o"></i>#}
+                    {#                        </button>#}
+                    {##}
+                    {#                    </div>#}
                 </div>
                 <div class="mail-box" style="padding-top: 20px;">
 
@@ -88,15 +89,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>查询指定车辆详情</td>
-                            <td><label class="label-success label" style="padding: 3px;"> GET </label> &nbsp;&nbsp;/car/{id}</td>
+                        <tr v-for="(item, index) in apis">
+                            <td>[[ item.name ]]</td>
+                            <td><label class="label-success label" style="padding: 3px;"> [[ item.method ]] </label>
+                                &nbsp;&nbsp;[[ item.url ]]
+                            </td>
                             <td>张瑀楠</td>
                             <td>张瑀楠</td>
                             <td>2018年4月20日 13:53:47</td>
-                            <td>查看 | 修改 | 删除 </td>
+                            <td>查看 | <a :href="'{% url 'api/edit' %}?id=' + item.id">修改</a> | <span
+                                    @click="deleteApi(item.id,index)" class="delete">删除</span></td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -123,7 +126,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}
 {% block script %}
@@ -134,12 +136,30 @@
             el: '#devops_app',
             data: {
                 project: {},
-
+                apis: [],
             },
             mounted: function () {
                 this.getProject();
+                this.getApis();
             },
             methods: {
+                deleteApi(id, index) {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'api/delete' %}",
+                        type: 'POST',
+                        data: {id: id},
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.apis.splice(index, 1);
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+
+
+                },
                 addGroup() {
                     $("#modal_group").modal('hide');
                 },
@@ -156,6 +176,20 @@
                             }
                         }
                     });
+                },
+                getApis() {
+                    _this = this;
+                    $.ajax({
+                        url: "{% url 'api/search' %}",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.apis = data.records;
+                            } else {
+                                alert("什么都没有");
+                            }
+                        }
+                    });
+
                 }
             }
         });

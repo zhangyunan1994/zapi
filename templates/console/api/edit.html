@@ -41,7 +41,8 @@
                                                 <option value="6">PATCH</option>
                                             </select>
                                         </div>
-                                        <input type="text" class="form-control" v-model="api_param.url" placeholder="url">
+                                        <input type="text" class="form-control" v-model="api_param.url"
+                                               placeholder="url">
                                     </div>
                                 </div>
                             </div>
@@ -351,10 +352,10 @@
                 response_param: {type: 1, required: true,},
             },
             mounted: function () {
-                this.getProject();
+                this.getApi();
             },
             methods: {
-                save() {
+                getApi() {
                     _this = this;
                     let param = {
                         api_param: _this.api_param,
@@ -363,11 +364,38 @@
                     };
 
                     $.ajax({
-                        url : '{% url "api/adda" %}',
+                        url: '{% url "api/get" %}',
+                        type: 'GET',
+                        data: {id: GetRequest()['id']},
+                        success: function (data) {
+                            console.info(data);
+                            let api_param = {
+                                name: data.record.name,
+                                http: data.record.http,
+                                method: data.record.method,
+                                url: data.record.url,
+                            };
+                            _this.api_param = api_param;
+                            _this.request_params = JSON.parse(data.record.request_params);
+                            _this.response_params = JSON.parse(data.record.response_params);
+                        }
+                    });
+                },
+                save() {
+                    _this = this;
+                    let param = {
+                        id: GetRequest()['id'],
+                        api_param: _this.api_param,
+                        request_params: _this.request_params,
+                        response_params: _this.response_params,
+                    };
+
+                    $.ajax({
+                        url: '{% url "api/update" %}',
                         type: 'POST',
                         data: JSON.stringify(param),
                         contentType: "application/json; charset=utf-8",
-                        success: function(data) {
+                        success: function (data) {
                             console.info(data);
                         }
                     });
