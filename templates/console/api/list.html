@@ -42,11 +42,11 @@
             <div class="col-sm-10 animated fadeInRight">
                 <div class="mail-box-header">
                     <a class="btn btn-success btn-sm pull-left" href="{% url 'api/add' %}">新建接口</a>
-                    <form method="get" action="index.html" class="pull-left mail-search" style="margin-left: 10px;">
+                    <form class="pull-left mail-search" style="margin-left: 10px;">
                         <div class="input-group">
-                            <input type="text" class="form-control input-sm" name="search" placeholder="搜索邮件标题，正文等">
+                            <input type="text" class="form-control input-sm" name="search" placeholder="搜索接口名称、URL等">
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-sm btn-primary">
+                                <button type="button" @click="getApis" class="btn btn-sm btn-primary">
                                     搜索
                                 </button>
                             </div>
@@ -97,7 +97,7 @@
                             <td>张瑀楠</td>
                             <td>张瑀楠</td>
                             <td>2018年4月20日 13:53:47</td>
-                            <td>查看 | <a :href="'{% url 'api/edit' %}?id=' + item.id">修改</a> | <span
+                            <td><a :href="'{% url 'api/detail' %}?id=' + item.id">查看</a> | <a :href="'{% url 'api/edit' %}?id=' + item.id">修改</a> | <span
                                     @click="deleteApi(item.id,index)" class="delete">删除</span></td>
                         </tr>
                         </tbody>

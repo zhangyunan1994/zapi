@@ -27,6 +27,10 @@ def edit(request):
     return render(request, 'console/api/edit.html')
 
 
+def api_detail(request):
+    return render(request, 'console/api/detail.html')
+
+
 def api_add_api(request):
     req = json.loads(request.body)
     Api.objects.create(name=req['api_param']['name'], http=req['api_param']['http'], method=req['api_param']['method'],

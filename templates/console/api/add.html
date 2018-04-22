@@ -5,7 +5,12 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-success" @click="save">保存</button>
+                <div class="ibox" style="margin-bottom: 12px;">
+                    <button class="btn btn-sm btn-info" @click="history.go(-1)"><span
+                            class="lnr lnr-chevron-left"></span> 返回列表
+                    </button>
+                    <button class="btn btn-sm btn-success" @click="save">保存</button>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -41,7 +46,8 @@
                                                 <option value="6">PATCH</option>
                                             </select>
                                         </div>
-                                        <input type="text" class="form-control" v-model="api_param.url" placeholder="url">
+                                        <input type="text" class="form-control" v-model="api_param.url"
+                                               placeholder="url">
                                     </div>
                                 </div>
                             </div>
@@ -340,13 +346,9 @@
                 },
                 project: {},
                 request_params: [
-                    {name: 'id', type: 2, required: true, example_value: '123', remark: '车辆id'},
-                    {name: 'storeId', type: 2, required: true, example_value: '123', remark: '店铺id'},
                 ],
                 request_param: {type: 1, required: true,},
                 response_params: [
-                    {name: 'id', type: 2, required: true, example_value: '123', remark: '车辆id'},
-                    {name: 'storeId', type: 2, required: true, example_value: '123', remark: '店铺id'},
                 ],
                 response_param: {type: 1, required: true,},
             },
@@ -363,11 +365,15 @@
                     };
 
                     $.ajax({
-                        url : '{% url "api/adda" %}',
+                        url: '{% url "api/adda" %}',
                         type: 'POST',
                         data: JSON.stringify(param),
                         contentType: "application/json; charset=utf-8",
-                        success: function(data) {
+                        success: function (data) {
+                            if (data.code === 200) {
+                                layer.msg('保存成功');
+                                setTimeout("javascript:location.href='{% url "api/list" %}'", 500);
+                            }
                             console.info(data);
                         }
                     });

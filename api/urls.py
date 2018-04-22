@@ -26,6 +26,7 @@ urlpatterns = [
     path(r'search', views.api_search, name='api/search'),
     path(r'edit', views.edit, name='api/edit'),
     path(r'get', views.api_get, name='api/get'),
+    path(r'detail', views.api_detail, name='api/detail'),
     path(r'update', views.api_update, name='api/update'),
     path(r'delete', views.api_delete, name='api/delete'),
 ]
