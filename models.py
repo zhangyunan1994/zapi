@@ -14,7 +14,8 @@ class Api(models.Model):
     http = models.IntegerField()
     method = models.CharField(max_length=10)
     request_params = models.CharField(max_length=500, blank=True, null=True)
-    response_params = models.CharField(max_length=500, blank=True, null=True)
+    response_params = models.CharField(max_length=1000, blank=True, null=True)
+    url = models.CharField(max_length=100)
 
     class Meta:
         managed = False
@@ -141,6 +142,17 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Environment(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    url = models.CharField(max_length=100)
+    header = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'environment'
 
 
 class Member(models.Model):

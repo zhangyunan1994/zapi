@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
-from api.models import Api
+from api.models import Api, Environment
 
 
 def index(request):
@@ -69,3 +69,14 @@ def api_delete(request):
 
 def api_environment(request):
     return render(request, 'console/api/environment.html')
+
+
+def api_environment_add(request):
+    req = json.loads(request.body)
+    Environment.objects.create(name=req['name'], url=req['url'],header=json.dumps(req['header_params']))
+    return JsonResponse({"code": 200}, safe=False)
+
+
+def api_environment_list(request):
+    results = Environment.objects.values().all()
+    return JsonResponse({"code": 200, "records": list(results)}, safe=False)

@@ -30,4 +30,6 @@ urlpatterns = [
     path(r'update', views.api_update, name='api/update'),
     path(r'delete', views.api_delete, name='api/delete'),
     path(r'environment', views.api_environment, name='api/environment'),
+    path(r'environment/add', views.api_environment_add, name='api/environment/add'),
+    path(r'environment/list', views.api_environment_list, name='api/environment/list'),
 ]

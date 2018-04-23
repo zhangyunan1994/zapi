@@ -14,3 +14,14 @@ class Api(models.Model):
     class Meta:
         managed = False
         db_table = 'api'
+
+
+class Environment(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    url = models.CharField(max_length=100)
+    header = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'environment'

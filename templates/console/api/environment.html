@@ -2,15 +2,150 @@
 {% block body %}
     <!-- MAIN CONTENT -->
     <div class="main-content" id="devops_app">
-       <div class="ibox" style="margin-bottom: 12px;">
-            <button class="btn btn-sm btn-success" @click="save">添加新环境</button>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content text-center p-md">
-                        <div class="row">
+    <div class="ibox" style="margin-bottom: 12px;">
+        <a data-toggle="modal" type="button" href="#modal_add" class="btn btn-sm btn-success">添加新环境</a>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content text-center p-md">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <button type="button" class="list-group-item" v-for="item in environments">[[ item.name
+                                    ]]
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h3 class="m-t-none m-b">添加测试环境</h3>
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>环境名称：</label>
+                                    <input placeholder="环境名称" class="form-control" v-model="name">
+                                </div>
+                                <div class="form-group">
+                                    <label>URL前缀：</label>
+                                    <input placeholder="URL 前缀" class="form-control" v-model="url">
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 200px;">Header</th>
+                                        <th style="width: 150px;">Value</th>
+                                        <th style="width: 150px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(item,index) in header_params">
+                                        <td class="no-padding">
+                                            <input v-model="item.name" placeholder="header"
+                                                   class="form-control no-border width100" style="border: none;">
+                                        </td>
 
+                                        <td class="no-padding" style="width: 200px;">
+                                            <input v-model="item.value" placeholder="value"
+                                                   class="form-control no-border width100" style="border: none;">
+                                        </td>
+                                        <td>
+                                            <span class="lnr lnr-cog" style="padding-right: 10px;"></span>
+                                            <span class="lnr lnr-trash"
+                                                  @click="deleteRequestParam(item.id,index)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-padding">
+                                            <input v-model="header_param.name" placeholder="header"
+                                                   class="form-control no-border width100" style="border: none;">
+                                        </td>
+                                        <td class="no-padding">
+                                            <input v-model="header_param.value" placeholder="value"
+                                                   class="form-control no-border width100" style="border: none;">
+                                        </td>
+                                        <td>
+                                            <span class="lnr lnr-plus-circle" style="padding-right: 10px;"
+                                                  @click="addRequestParam"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"
+                                            @click="save">
+                                        <strong>添加环境</strong>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_add" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">添加测试环境</h3>
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>环境名称：</label>
+                                        <input placeholder="环境名称" class="form-control" v-model="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>URL前缀：</label>
+                                        <input placeholder="URL 前缀" class="form-control" v-model="url">
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 200px;">Header</th>
+                                            <th style="width: 150px;">Value</th>
+                                            <th style="width: 150px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(item,index) in header_params">
+                                            <td class="no-padding">
+                                                <input v-model="item.name" placeholder="header"
+                                                       class="form-control no-border width100" style="border: none;">
+                                            </td>
+
+                                            <td class="no-padding" style="width: 200px;">
+                                                <input v-model="item.value" placeholder="value"
+                                                       class="form-control no-border width100" style="border: none;">
+                                            </td>
+                                            <td>
+                                                <span class="lnr lnr-cog" style="padding-right: 10px;"></span>
+                                                <span class="lnr lnr-trash"
+                                                      @click="deleteRequestParam(item.id,index)"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no-padding">
+                                                <input v-model="header_param.name" placeholder="header"
+                                                       class="form-control no-border width100" style="border: none;">
+                                            </td>
+                                            <td class="no-padding">
+                                                <input v-model="header_param.value" placeholder="value"
+                                                       class="form-control no-border width100" style="border: none;">
+                                            </td>
+                                            <td>
+                                            <span class="lnr lnr-plus-circle" style="padding-right: 10px;"
+                                                  @click="addRequestParam"></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"
+                                                @click="save">
+                                            <strong>添加环境</strong>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -20,10 +155,63 @@
 {% endblock %}
 {% block script %}
     <script>
-        $(document).ready(function () {
-            $(".contact-box").each(function () {
-                animationHover(this, "pulse")
-            })
+        let devops_app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#devops_app',
+            data: {
+                environments: [],
+                name: '',
+                url: '',
+                header_params: [],
+                header_param: {},
+            },
+            mounted: function () {
+                this.search();
+            },
+            methods: {
+                search() {
+                    _this = this;
+                    $.ajax({
+                        url: '{% url "api/environment/list" %}',
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.environments = data.records;
+                                _this.environments.forEach(e => {
+                                    e.header = JSON.parse(e.header);
+                                })
+                            }
+                        }
+                    });
+                },
+                save() {
+                    _this = this;
+                    let param = {
+                        name: _this.name,
+                        url: _this.url,
+                        header_params: _this.header_params,
+                    };
+
+                    $.ajax({
+                        url: '{% url "api/environment/add" %}',
+                        type: 'POST',
+                        data: JSON.stringify(param),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                layer.msg('保存成功');
+                            }
+                            console.info(data);
+                        }
+                    });
+                },
+                addRequestParam() {
+                    this.header_params.push(this.header_param);
+                    this.header_param = {};
+                },
+                deleteRequestParam(id, i) {
+                    this.header_params.splice(i, 1);
+                },
+            }
         });
     </script>
 {% endblock %}
