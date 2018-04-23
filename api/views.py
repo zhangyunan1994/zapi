@@ -65,3 +65,7 @@ def api_delete(request):
     id = request.POST.get("id")
     result = Api.objects.filter(id=id).delete()
     return JsonResponse({"code": 200, "record": result}, safe=False)
+
+
+def api_environment(request):
+    return render(request, 'console/api/environment.html')
