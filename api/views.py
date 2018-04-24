@@ -19,6 +19,10 @@ def api_list(request):
     return render(request, 'console/api/list.html')
 
 
+def api_test(request):
+    return render(request, 'console/api/test.html')
+
+
 def api_add(request):
     return render(request, 'console/api/add.html')
 
@@ -73,7 +77,7 @@ def api_environment(request):
 
 def api_environment_add(request):
     req = json.loads(request.body)
-    Environment.objects.create(name=req['name'], url=req['url'],header=json.dumps(req['header_params']))
+    Environment.objects.create(name=req['name'], url=req['url'], header=json.dumps(req['header_params']))
     return JsonResponse({"code": 200}, safe=False)
 
 

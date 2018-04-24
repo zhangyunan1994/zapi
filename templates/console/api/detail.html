@@ -8,9 +8,23 @@
                     <button class="btn btn-sm btn-info" @click="history.go(-1)"><span
                             class="lnr lnr-chevron-left"></span> 返回列表
                     </button>
+
+                    <a class="btn btn-sm btn-success" :href="'{% url 'api/test' %}?id=' + GetRequest()['id']">测试</a>
+                    <button class="btn btn-sm btn-success">保存</button>
                     <a class="btn btn-sm btn-primary" :href="'{% url 'api/edit' %}?id=' + GetRequest()['id']">
-                            修改
+                        修改
                     </a>
+                    <div class="col-md-3 pull-right">
+                        <div class="input-group input-group-sm m-b">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary">测试环境</button>
+                            </span>
+                            <select class="form-control m-b" name="account">
+                                <option>无环境</option>
+                                <option v-for="item in environments">[[ item.name ]]</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,6 +196,7 @@
             delimiters: ['[[', ']]'],
             el: '#devops_app',
             data: {
+                environments: [],
                 api_param: {
                     name: '',
                     http: 1,
@@ -193,8 +208,23 @@
             },
             mounted: function () {
                 this.getApi();
+                this.getEnvironmentList();
             },
             methods: {
+                getEnvironmentList() {
+                    _this = this;
+                    $.ajax({
+                        url: '{% url "api/environment/list" %}',
+                        success: function (data) {
+                            if (data.code === 200) {
+                                _this.environments = data.records;
+                                _this.environments.forEach(e => {
+                                    e.header_params = JSON.parse(e.header);
+                                })
+                            }
+                        }
+                    });
+                },
                 getApi() {
                     _this = this;
                     let param = {
