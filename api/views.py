@@ -40,12 +40,17 @@ def api_add_api(request):
     Api.objects.create(name=req['api_param']['name'], http=req['api_param']['http'], method=req['api_param']['method'],
                        url=req['api_param']['url'],
                        request_params=json.dumps(req['request_params']),
-                       response_params=json.dumps(req['response_params']))
+                       response_params=json.dumps(req['response_params']),
+                       project_id=req['project_id'])
     return JsonResponse({"code": 200}, safe=False)
 
 
 def api_search(request):
-    results = Api.objects.values().all()
+    project_id = request.GET.get('project_id')
+    results = Api.objects
+    if project_id:
+        results = results.filter(project_id=project_id)
+    results = results.values().all()
     return JsonResponse({"code": 200, "records": list(results)}, safe=False)
 
 

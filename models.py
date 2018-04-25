@@ -16,6 +16,7 @@ class Api(models.Model):
     request_params = models.CharField(max_length=500, blank=True, null=True)
     response_params = models.CharField(max_length=1000, blank=True, null=True)
     url = models.CharField(max_length=100)
+    project_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False

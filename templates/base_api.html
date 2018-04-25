@@ -23,7 +23,7 @@
 
 <body>
 	<!-- WRAPPER -->
-	<div id="wrapper">
+	<div id="wrapper" class="devops_app">
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand" style="padding:20px 40px;">
@@ -83,13 +83,13 @@
                             <a href=""><i class="lnr lnr-home"></i> <span>项目</span></a>
 						</li>
                         <li>
-                            <a href="{% url 'api/list' %}"><i class="lnr lnr-home"></i> <span>接口文档</span></a>
+                            <a :href="'{% url 'api/list' %}?projectId=' + GetRequest()['projectId']"><i class="lnr lnr-home"></i> <span>接口文档</span></a>
 						</li>
                         <li>
-                            <a href="{% url 'api/environment' %}"><i class="lnr lnr-home"></i> <span>测试环境</span></a>
+                            <a :href="'{% url 'api/environment' %}?projectId=' + GetRequest()['projectId']"><i class="lnr lnr-home"></i> <span>测试环境</span></a>
 						</li>
                         <li>
-                            <a href="{% url 'api/team' %}"><i class="lnr lnr-user"></i> <span>成员管理</span></a>
+                            <a :href="'{% url 'api/team' %}?projectId=' + GetRequest()['projectId']"><i class="lnr lnr-user"></i> <span>成员管理</span></a>
 						</li>
 					</ul>
 				</nav>

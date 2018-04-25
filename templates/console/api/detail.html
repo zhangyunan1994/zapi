@@ -1,7 +1,7 @@
 {% extends 'base_api.html' %}
 {% block body %}
     <!-- MAIN CONTENT -->
-    <div class="main-content" id="devops_app">
+    <div class="main-content">
         <div class="row">
             <div class="col-md-12">
                 <div class="ibox" style="margin-bottom: 12px;">
@@ -194,7 +194,7 @@
         let project_id = 6;
         let devops_app = new Vue({
             delimiters: ['[[', ']]'],
-            el: '#devops_app',
+            el: '.devops_app',
             data: {
                 environments: [],
                 api_param: {

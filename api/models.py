@@ -8,6 +8,7 @@ class Api(models.Model):
     url = models.CharField(max_length=100)
     http = models.IntegerField()
     method = models.CharField(max_length=10)
+    project_id = models.IntegerField(blank=True, null=True)
     request_params = models.CharField(max_length=500, blank=True, null=True)
     response_params = models.CharField(max_length=500, blank=True, null=True)
 

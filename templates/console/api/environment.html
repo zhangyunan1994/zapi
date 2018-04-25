@@ -1,7 +1,7 @@
 {% extends 'base_api.html' %}
 {% block body %}
     <!-- MAIN CONTENT -->
-    <div class="main-content" id="devops_app">
+    <div class="main-content">
     <div class="ibox" style="margin-bottom: 12px;">
         <a data-toggle="modal" type="button" href="#modal_add" class="btn btn-sm btn-success">添加新环境</a>
     </div>
@@ -135,7 +135,7 @@
     <script>
         let devops_app = new Vue({
             delimiters: ['[[', ']]'],
-            el: '#devops_app',
+            el: '.devops_app',
             data: {
                 environments: [],
                 environment: {},
